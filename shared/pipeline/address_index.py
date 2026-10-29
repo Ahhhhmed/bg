@@ -45,7 +45,7 @@ def centroid(geom):
 
 def main():
     if not SRC.exists():
-        sys.exit(f"{SRC} missing: run the city's pipeline first (README)")
+        sys.exit(f"{SRC} missing: run the city's pipeline first (docs/development.md)")
     rows = []
     for f in json.loads(SRC.read_text())["features"]:
         p = f["properties"]

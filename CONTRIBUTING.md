@@ -84,7 +84,7 @@ python3 scripts/serve.py 8750 dist     # open http://localhost:8750/
 
 Then run `claude` in the folder and work as above. The committed tiles are
 enough to build and run the site; the pipelines in `cities/*/pipeline/` are
-only needed to refresh a city's data (see [`README.md`](README.md)).
+only needed to refresh a city's data (see [`docs/development.md`](docs/development.md)).
 
 ## Deployment
 

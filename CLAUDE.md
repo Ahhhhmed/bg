@@ -4,7 +4,7 @@
 of Zürich as the **reference**: a fuller map of the same features where the
 sources exist, refreshed rarely. Work goes to Belgrade first; Zürich changes
 only when the shared app needs it. Layout and rebuild steps are in
-[README.md](README.md), how people work here in [CONTRIBUTING.md](CONTRIBUTING.md);
+[docs/development.md](docs/development.md), how people work here in [CONTRIBUTING.md](CONTRIBUTING.md);
 this is the "why" and the gotchas.
 
 ## Start here

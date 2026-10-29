@@ -25,4 +25,4 @@ echo "== Python packages (.venv) =="
 python3 -m venv .venv
 .venv/bin/pip install --quiet --upgrade pip
 .venv/bin/pip install --quiet -r requirements.txt
-echo "Done. Activate with: source .venv/bin/activate; then see README.md."
+echo "Done. Activate with: source .venv/bin/activate; then see docs/development.md."
