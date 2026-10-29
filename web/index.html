@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="title.map">City map</title>
+  <meta name="description" content="Buildings, addresses and places of one city on a map, from open data: year built, floors, places nearby.">
+  <!-- MapLibre GL JS 5.24.0 (since on the owner's laptop and phone it drew and
+       started as fast as 3.6.2). ?ml=3 loads 3.6.2 on top (it replaces the global) as the way back
+       and for web/bench.html; plain tags otherwise, because Chrome may block cross-site scripts
+       written with document.write on slow connections. -->
+  <link href="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js"></script>
+  <script>
+    window.BAU_MAPLIBRE = "5.24.0";
+    if (new URLSearchParams(location.search).get("ml") === "3") {
+      window.BAU_MAPLIBRE = "3.6.2";
+      document.write('<link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">' +
+                     '<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"><\/script>');
+    }
+  </script>
+  <script src="https://unpkg.com/pmtiles@3.0.6/dist/pmtiles.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..600,100&family=Nunito:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="icon" href="mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="controls.css">
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="city.js"></script>   <!-- the city: centre, languages, what it has (cities/<id>/city.js) -->
+  <script src="i18n_sr.js"></script>
+  <script src="i18n.js"></script>
+  <script src="years.js"></script>
+  <script src="area.js"></script>
+  <script src="relief.js"></script>
+  <script src="layers.js"></script>
+  <script src="profile.js"></script>
+  <script src="freshness.js"></script>
+  <script src="controls.js"></script>
+  <script src="map.js"></script>
+  <script src="stops.js"></script>
+  <script src="places.js"></script>
+  <script src="nearby.js"></script>
+  <script src="search.js"></script>
+  <script>initSearch(controls);   // the address search in the brand card</script>
+</body>
+</html>

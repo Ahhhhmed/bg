@@ -1,0 +1,102 @@
+{
+ "shops": {
+  "overture": {
+   "de": "Overture Places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "en": "Overture places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "osm": {
+   "de": "OpenStreetMap, Spielplätze (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, playgrounds (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  }
+ },
+ "schools": {
+  "overture": {
+   "de": "Overture Places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "en": "Overture places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "osm": {
+   "de": "OpenStreetMap, Spielplätze (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, playgrounds (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  }
+ },
+ "health": {
+  "overture": {
+   "de": "Overture Places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "en": "Overture places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "osm": {
+   "de": "OpenStreetMap, Spielplätze (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, playgrounds (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  }
+ },
+ "hospitals": {
+  "overture": {
+   "de": "Overture Places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "en": "Overture places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "osm": {
+   "de": "OpenStreetMap, Spielplätze (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, playgrounds (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  }
+ },
+ "playgrounds": {
+  "overture": {
+   "de": "Overture Places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "en": "Overture places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "osm": {
+   "de": "OpenStreetMap, Spielplätze (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, playgrounds (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  }
+ },
+ "baths": {
+  "overture": {
+   "de": "Overture Places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "en": "Overture places (Meta, Foursquare, Microsoft, AllThePlaces) (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "osm": {
+   "de": "OpenStreetMap, Spielplätze (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, playgrounds (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  }
+ },
+ "air": {
+  "sepa_live": {
+   "de": "SEPA, Stundenwerte der letzten 30 Tage, vorläufig (2026-09-29 – 2026-10-29)",
+   "en": "SEPA, hourly values of the last 30 days, preliminary (2026-09-29 – 2026-10-29)",
+   "sr": "SEPA, satne vrednosti poslednjih 30 dana, neverifikovano (2026-09-29 – 2026-10-29)",
+   "url": "https://data.gov.rs/sr/datasets/kvalitet-vazduha-satne-vrednosti-neverifikovani-podaci-poslednjih-30-dana/",
+   "date": "2026-10-29"
+  },
+  "sepa_verified": {
+   "de": "SEPA, verifizierte Tageswerte 2024",
+   "en": "SEPA, verified daily values 2024",
+   "sr": "SEPA, verifikovane dnevne vrednosti 2024",
+   "url": "https://data.gov.rs/sr/datasets/kvalitet-vazdukha/",
+   "date": "2026-03-16"
+  }
+ }
+}

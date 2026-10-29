@@ -1,0 +1,6 @@
+# The map area: the City of Zürich (its 12 Kreise are the inner borders,
+# build_kreise.py). Matched on the BFS number; the name is for humans.
+# Read by pipeline/swiss/area.py.
+municipalities:
+  - bfs: 261
+    name: Zürich

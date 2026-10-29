@@ -1,0 +1,28 @@
+# On every push and PR: the privacy guard, the code compiles, the backlog is
+# valid, the site builds from the committed data, and the headless check passes
+# on the built site (the start page and both cities).
+name: check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: Python and JS compile
+        run: |
+          python -m py_compile $(git ls-files '*.py')
+          for f in $(git ls-files 'web/*.js' 'cities/*/city.js'); do node -e "new Function(require('fs').readFileSync('$f','utf8'))"; done
+      - name: Backlog
+        run: python scripts/backlog.py check
+      - name: Build (includes the privacy guard)
+        run: bash scripts/build.sh
+      - name: Headless check
+        run: |
+          npm i --no-save playwright@1.47.2 && npx playwright install --with-deps chromium
+          python scripts/serve.py 8750 dist >/dev/null 2>&1 &
+          sleep 2
+          node scripts/check.cjs http://localhost:8750 /tmp/check

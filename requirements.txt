@@ -1,0 +1,14 @@
+# Python packages for every city's pipeline (bash setup.sh installs them)
+numpy
+pillow
+shapely>=2
+pyproj
+pyarrow          # Overture (Belgrade), SEPA's parquet
+openpyxl         # Zürich hospital lists, SEPA's verified xlsx
+pyyaml           # cities/zurich/config/*.yaml
+tifffile         # Copernicus DEM (Belgrade relief)
+requests
+opencv-python-headless   # Zürich: building outlines traced off the raster map (fallback tier)
+rasterio         # Zürich: noise and solar rasters
+pyshp            # Zürich: swissTLM3D shapefiles (tunnels / bridges)
+pyogrio          # Zürich: the runoff map (FileGDB)

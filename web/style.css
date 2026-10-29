@@ -1,0 +1,474 @@
+/* Map page (web/index.html) + building hover card. Tokens: web/theme.css. */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--bg-font);
+  background-color: var(--bg-bg);
+  color: var(--bg-ink);
+  height: 100vh;
+  overflow: hidden;
+}
+
+#map {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-bg);
+}
+
+/* The year's map colour sits in a swatch next to the text; the text itself
+   stays in the text colour (rule from CLAUDE.md: text never wears a group colour). */
+.year-swatch {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 0.4em;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(74, 64, 57, 0.18);
+  vertical-align: -0.08em;
+}
+
+.status-badge {
+  display: inline-block;
+  margin: 0 0 0 4px;
+  padding: 0 7px;
+  border: 1px dashed var(--bg-accent);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--bg-accent);
+}
+
+/* Hover cards (web/map.js): places use the small card, buildings the full one
+   (.hc-building, buildingCardHtml). A data colour arrives as
+   --c (fill) / --o (outline) on the element; text stays cocoa on a light tint
+   of it (color-mix), never in the colour itself. */
+.hover-card { min-width: 200px; max-width: 320px; }
+.hover-card .hc-title {
+  font-family: var(--bg-serif);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.hover-card .hc-place { color: var(--bg-muted); font-size: 11px; margin: 1px 0 6px; }
+.hover-card .hc-muted { color: var(--bg-muted); }
+
+.hc-building { width: 488px; max-width: calc(100vw - 36px); }
+/* 6 px of room on each side for the blocks that reach past the column with a
+   tint (the active mode's block, the clickable stop, the nearby rows: negative
+   margins); the content keeps its 476 px, and nothing sticks out of the card
+   (it scrolls when pinned, so that was a horizontal scrollbar) */
+.hc-building { padding-inline: 6px; margin-inline: -6px; }
+.hc-building .hc-title { font-size: 18px; padding-right: 26px; }
+.hc-building .hc-place { font-size: 11.5px; margin-bottom: 5px; }
+.hc-quiet { border-color: var(--bg-muted); color: var(--bg-muted); }
+
+/* the building card is placed by hand (map.js placeCard): no tip */
+.bg-card-popup .maplibregl-popup-tip { display: none; }
+/* the hover card never takes the mouse: it may sit over the pointer where
+   the map has no room beside it, and the map must keep its hover */
+.bg-hover-popup, .bg-hover-popup .maplibregl-popup-content { pointer-events: none; }
+
+/* a value in its layer's colour: a dot in the colour on a light tint of it */
+.hc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 2px 9px 2px 7px;
+  border-radius: 999px;
+  background: var(--bg-tint);
+  background: color-mix(in srgb, var(--c, #e8dfd3) 26%, var(--bg-card-solid));
+  font-weight: 700;
+  line-height: 1.35;
+}
+.hc-chip::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--c, transparent);
+  box-shadow: inset 0 0 0 1.5px var(--o, transparent);
+}
+.hc-chip.hc-plain::before { display: none; }
+/* no value: a dashed outline, muted text, no colour */
+.hc-chip.hc-na {
+  padding: 1px 9px;
+  border: 1px dashed #c9bdb0;
+  background: none;
+  color: var(--bg-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+.hc-chip.hc-na::before { display: none; }
+.hc-chip.hc-plain { padding-left: 9px; }
+
+/* key figures: big numbers in the title face; flats / floors tinted with
+   their colour mode's class, with a bar of the full colour */
+.hc-figures { display: flex; gap: 5px; margin: 9px 0 0; }
+.hc-fig {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 5px 8px 6px;
+  border-radius: var(--bg-radius-sm);
+  background: var(--bg-tint);
+  overflow: hidden;
+}
+.hc-fig.hc-tinted { background: color-mix(in srgb, var(--c) 30%, var(--bg-card-solid)); }
+.hc-fig.hc-tinted::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: var(--c);
+  box-shadow: inset 0 -1px 0 var(--o);
+}
+.hc-fig strong {
+  display: block;
+  font-family: var(--bg-serif);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hc-fig span { display: block; color: var(--bg-muted); font-size: 10px; }
+
+/* themed sections in two columns (map.js assigns them), one on a phone */
+.hc-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 18px;
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid var(--bg-rule);
+}
+.hc-col { min-width: 0; }
+/* sections have no headings: blocks carry their own captions, a little air
+   (and a hairline) between topics */
+.hc-sec { margin: 0 0 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--bg-rule); }
+.hc-col .hc-sec:last-child { border-bottom: 0; padding-bottom: 0; }
+.hc-sec h4 {
+  margin: 0 0 5px;
+  font: 600 13px/1.2 var(--bg-serif);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  color: var(--bg-ink);
+  text-transform: lowercase;
+}
+@media (max-width: 560px) { .hc-sections { grid-template-columns: 1fr; } }
+
+/* blocks: small caption, the value large, a detail line; chip blocks two
+   to a row */
+.hc-blocks { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 10px; }
+.hc-block { grid-column: 1 / -1; min-width: 0; padding: 0; border-radius: 8px; }
+.hc-block.hc-half { grid-column: auto; }
+.hc-cap {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--bg-muted);
+  margin-bottom: 2px;
+}
+.hc-main { font-size: 12.5px; font-weight: 700; line-height: 1.35; }
+.hc-sub { margin-top: 2px; color: var(--bg-muted); font-size: 10.5px; line-height: 1.35; overflow-wrap: anywhere; }
+/* the block of the active colour mode / ground theme (sidebar) */
+.hc-fig.hc-active, .hc-legend.hc-active .hc-chip { box-shadow: 0 0 0 1.5px var(--bg-accent); }
+.hc-block.hc-active { padding: 3px 6px 4px; margin: -3px -6px -4px; background: var(--bg-tint); box-shadow: inset 0 0 0 1px var(--bg-rule); }
+
+/* building facts as pills */
+.hc-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.hc-tags span {
+  padding: 1px 8px;
+  border: 1px solid var(--bg-rule);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.hc-tags span.hc-na-tag { border-style: dashed; border-color: #c9bdb0; color: var(--bg-muted); font-weight: 500; }
+
+/* noise: the noise mode's seven colours as the track, lit up to the value;
+   the tick is the legal limit for the building's ES */
+.hc-meter {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 3px 7px;
+  margin: 3px 0 1px;
+}
+.hc-meter-label { color: var(--bg-muted); font-size: 10px; }
+.hc-track { position: relative; display: flex; gap: 1px; height: 8px; }
+.hc-track i {
+  position: relative;
+  display: block;
+  min-width: 0;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--c) 22%, var(--bg-card-solid));
+  overflow: hidden;
+}
+.hc-track i b { position: absolute; left: 0; top: 0; bottom: 0; background: var(--c); }
+.hc-track u {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--bg-ink);
+}
+.hc-meter-value { font-size: 12.5px; font-weight: 800; white-space: nowrap; text-align: right; min-width: 3.4em; }
+.hc-meter-value small { font-size: 9.5px; font-weight: 600; color: var(--bg-muted); }
+.hc-over-note { margin-top: 3px; font-size: 10.5px; font-weight: 700; color: var(--bg-accent); }
+.hc-over-note::before { content: "▲ "; font-size: 8px; vertical-align: 1px; }
+.hc-aside { font-size: 11.5px; font-weight: 800; letter-spacing: 0; text-transform: none; color: var(--bg-ink); }
+.hc-aside.hc-quiet-text { font-size: 10px; font-weight: 600; color: var(--bg-muted); }
+.hc-chip.hc-mini { gap: 4px; padding: 0 6px 0 5px; font-size: 9.5px; font-weight: 700; }
+.hc-chip.hc-mini::before { width: 7px; height: 7px; }
+.hc-legend { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: help; }
+.hc-legend u { display: inline-block; width: 2px; height: 9px; border-radius: 1px; background: var(--bg-ink); vertical-align: -1px; }
+
+/* solar: the four classes, the building's one raised */
+.hc-scale { display: flex; gap: 2px; margin: 4px 0 2px; }
+.hc-scale i {
+  flex: 1;
+  height: 7px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--c) 35%, var(--bg-card-solid));
+}
+.hc-scale i.hc-on { height: 11px; margin-top: -2px; background: var(--c); box-shadow: inset 0 0 0 1.5px var(--o); }
+
+/* plot: built share as a bar */
+.hc-share { display: flex; align-items: center; gap: 7px; margin-top: 1px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
+.hc-share strong { font-size: 12.5px; }
+.hc-share span { flex: 1; height: 6px; border-radius: 3px; background: var(--bg-rule); overflow: hidden; }
+.hc-share i { display: block; height: 100%; background: var(--bg-accent); border-radius: 3px; }
+
+.hc-foot {
+  margin-top: 2px;
+  padding-top: 6px;
+  border-top: 1px solid var(--bg-rule);
+  color: var(--bg-muted);
+  font-size: 10px;
+}
+.hover-card .hc-links { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--bg-rule); }
+.hover-card .hc-links a { color: var(--bg-accent); font-weight: 700; text-decoration: none; }
+.hover-card .hc-links a:hover { text-decoration: underline; }
+/* the pinned card's close button (MapLibre's), as a soft round button */
+.maplibregl-popup-close-button {
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--bg-tint);
+  color: var(--bg-ink);
+  font: 700 17px/26px var(--bg-font);
+}
+.maplibregl-popup-close-button:hover { background: var(--bg-rule); }
+
+/* phone: the pinned card as a sheet along the bottom (map.js openSheet) */
+.hc-sheet {
+  position: fixed;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 10;
+  max-height: 64vh;
+  overflow-y: auto;
+  padding: 14px 16px 12px;
+  background: var(--bg-card-solid);
+  border-radius: var(--bg-radius);
+  box-shadow: var(--bg-shadow-lift);
+  font: 12px/1.45 var(--bg-font);
+  animation: bg-fade-in var(--bg-slow) var(--bg-ease);
+}
+.hc-sheet .hc-building { width: auto; max-width: none; }
+.hc-sheet-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  width: 28px;
+  height: 28px;
+  margin: -4px -6px 0 8px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bg-tint);
+  color: var(--bg-ink);
+  font: 700 18px/28px var(--bg-font);
+  cursor: pointer;
+}
+
+/* Stop card (web/stops.js): the building card's frame, with line
+   badges in the lines' own colours, the day's sawtooth and a clock of the
+   morning hour. */
+.sc-card { width: 512px; }   /* 500 px of content + the 6 px card room (.hc-building) */
+.sc-lines { display: flex; flex-wrap: wrap; gap: 3px; margin: 2px 0 2px; }
+.sc-line {
+  display: inline-block;
+  min-width: 22px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font: 800 10.5px/1.45 var(--bg-font);
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+.sc-line.sc-train { border-radius: 3px; }
+.sc-line.sc-bus { border-radius: 999px; }
+.sc-loading { margin-top: 10px; color: var(--bg-muted); font-size: 11px; }
+.sc-hb { margin-top: 10px; font-weight: 700; }
+.sc-row { display: grid; grid-template-columns: 1fr 140px; gap: 12px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--bg-rule); }
+.sc-daybox, .sc-clockbox { min-width: 0; }
+.sc-day, .sc-clock { display: block; width: 100%; height: auto; }
+.sc-saw { fill: none; stroke: var(--bg-ink); stroke-width: 1.4; stroke-linejoin: round; }
+.sc-band { fill: rgba(107, 93, 83, 0.16); }
+.sc-grid { stroke: var(--bg-rule); stroke-width: 1; }
+.sc-axis { fill: var(--bg-muted); font: 600 8.5px var(--bg-font); }
+.sc-face { fill: none; stroke: var(--bg-rule); stroke-width: 6; }
+.sc-tick { stroke: #c9bdb0; stroke-width: 1.2; }
+.sc-spoke { stroke: var(--bg-rule); stroke-width: 1.2; }
+.sc-dot { stroke: #ffffff; stroke-width: 1.2; }
+.sc-clock-big { fill: var(--bg-ink); font: 600 22px var(--bg-serif); font-variation-settings: "SOFT" 100, "WONK" 0; }
+.sc-clock-small { fill: var(--bg-muted); font: 700 8.5px var(--bg-font); }
+.sc-parts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 4px; }
+.sc-part { padding: 3px 5px; border-radius: 7px; background: var(--bg-tint); line-height: 1.2; }
+.sc-part.sc-on { box-shadow: inset 0 0 0 1.5px var(--bg-accent); }
+.sc-part span { display: block; color: var(--bg-muted); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.sc-part b { font-size: 12px; }
+.sc-part small { display: block; color: var(--bg-muted); font-size: 9px; }
+.sc-jcap { margin-top: 9px; }
+/* a fixed height, so picking another hour keeps the pinned card's size */
+.sc-journeys { margin: 3px 0 4px; padding: 0 4px 0 0; list-style: none; height: 156px; overflow-y: auto; }
+.sc-nodeps { color: var(--bg-muted); font-size: 11px; padding-top: 6px; }
+/* the hour picked: arrows on the pinned card, the hour, a hint */
+.sc-sel { display: flex; align-items: center; gap: 6px; margin: 8px 0 2px; }
+.sc-sel strong { font: 600 15px var(--bg-serif); font-variation-settings: "SOFT" 100, "WONK" 0; font-variant-numeric: tabular-nums; }
+.sc-sel .hc-quiet-text { flex: 1; min-width: 0; margin-left: 6px; font-size: 10px; text-align: right; white-space: normal; }
+.sc-step {
+  width: 24px; height: 24px; padding: 0; border: 0; border-radius: 999px;
+  background: var(--bg-tint); color: var(--bg-ink); font: 800 14px/24px var(--bg-font); cursor: pointer;
+}
+.sc-card:not(.sc-live) .sc-step { visibility: hidden; width: 0; margin: 0 -3px; }
+.sc-step:disabled { opacity: 0.35; cursor: default; }
+.sc-live .sc-step:not(:disabled):hover, .sc-live .sc-part:hover { box-shadow: inset 0 0 0 1.5px var(--bg-accent); }
+.sc-part { border: 0; font: inherit; color: inherit; text-align: left; }
+.sc-live .sc-part, .sc-live .sc-hit { cursor: pointer; }
+.sc-hit { fill: transparent; }
+.sc-guide { display: none; pointer-events: none; }
+.sc-guide.sc-on { display: inline; }
+.sc-guide line { stroke: var(--bg-accent); stroke-width: 1; stroke-dasharray: 2 2; }
+.sc-guide circle { fill: var(--bg-accent); }
+.sc-guide text { fill: var(--bg-ink); font: 800 9px var(--bg-font); paint-order: stroke; stroke: var(--bg-card-solid); stroke-width: 3px; }
+.sc-journeys li { display: grid; grid-template-columns: 38px 1fr auto; align-items: center; gap: 6px; padding: 3px 0; border-bottom: 1px dashed var(--bg-rule); font-size: 11px; }
+.sc-journeys li:last-child { border-bottom: 0; }
+.sc-time { font-weight: 800; }
+.sc-legs { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 3px; }
+.sc-to { color: var(--bg-muted); font-size: 10.5px; margin-right: 2px; }
+.sc-walk { color: var(--bg-muted); font-size: 10.5px; font-style: italic; }
+.sc-chg { color: #c9bdb0; }
+.sc-arr { font-weight: 800; text-align: right; white-space: nowrap; }
+.sc-arr small { display: block; color: var(--bg-muted); font-weight: 600; font-size: 9.5px; }
+@media (max-width: 560px) {
+  .sc-row { grid-template-columns: 1fr; }
+  .sc-clockbox { max-width: 170px; }
+}
+
+/* Place cards (web/places.js): the building card's look in small */
+.pc-card { width: 340px; }
+.pc-head { display: flex; align-items: flex-start; gap: 9px; padding-right: 22px; }
+.pc-icon { flex: none; width: 26px; height: 26px; margin-top: 1px; }
+.pc-titles { min-width: 0; }
+.pc-card .hc-place { margin-bottom: 4px; }
+.pc-chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0 2px; }
+.pc-chips .hc-chip { font-size: 11px; }
+.pc-accent { box-shadow: inset 0 0 0 1.5px var(--bg-ink); }
+.pc-rows { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 8px 0 2px; font-size: 11.5px; line-height: 1.35; }
+.pc-rows dt { color: var(--bg-muted); white-space: nowrap; }
+.pc-rows dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.pc-links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.pc-figures { margin-top: 8px; }
+.pc-figures .hc-fig strong { font-size: 15px; }
+.pc-card .pc-chips .hc-chip { font-weight: 700; }
+.pc-figures .hc-fig strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* a key fact no source states (C-05): a quiet dashed tile, muted text */
+.hc-fig.pc-unk { background: none; box-shadow: inset 0 0 0 1px #c9bdb0; }
+.hc-fig.pc-unk strong { color: var(--bg-muted); font-size: 11px; font-weight: 600; overflow: visible; text-overflow: clip; }
+.pc-rows dd.pc-unk-text { color: var(--bg-muted); font-style: italic; }
+.hc-share em.hc-unk { color: var(--bg-muted); font-size: 12px; }
+.pc-sources a { color: inherit; }
+
+/* the building card's neighbourhood (web/nearby.js) */
+.hc-nearby { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--bg-rule); }
+.hc-nearby ul { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; }
+.hc-nearby li {
+  display: grid; grid-template-columns: 16px auto 1fr auto; align-items: center; gap: 5px;
+  min-width: 0; padding: 2px 4px; margin: 0 -4px; border-radius: 6px; font-size: 11px; line-height: 1.3;
+}
+.hc-nearby li img, .hc-nearby li > i { width: 16px; height: 16px; }
+.hc-near-kind { color: var(--bg-muted); white-space: nowrap; }
+.hc-near-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hc-near-dist { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hc-near-none .hc-near-name, .hc-near-none .hc-near-dist { color: var(--bg-muted); }
+.hc-nearby li[data-near], .hc-block.hc-link { cursor: pointer; }
+.hc-nearby li[data-near]:hover, .hc-nearby li[data-near]:focus-visible,
+.hc-block.hc-link:hover, .hc-block.hc-link:focus-visible { background: var(--bg-tint); outline: none; }
+.hc-block.hc-link { padding: 3px 6px 4px; margin: -3px -6px -4px; }
+.hc-gist { margin-top: 4px; min-height: 34px; }   /* reserved: filled after the card is placed */
+.hc-gist-lines { display: flex; flex-wrap: wrap; gap: 3px; }
+.hc-gist-lines .sc-line { font-size: 10px; }
+@media (max-width: 600px) { .hc-nearby ul { grid-template-columns: 1fr; } }
+/* the pinned card never runs off the screen: it scrolls (the nearby list made it taller) */
+.maplibregl-popup:not(.bg-hover-popup) .hover-card.hc-building { max-height: calc(100vh - 48px); overflow-y: auto; }
+
+/* "Passt zum Suchprofil, n von m" (profileStripHtml in map.js) */
+.hc-profile { margin: 9px 0 0; padding: 7px 9px; border-radius: 12px; background: #f1ece3; }
+.hc-profile-head { display: flex; align-items: baseline; gap: 8px; font-size: 12.5px; }
+.hc-profile-head span { color: var(--bg-muted); font-size: 11.5px; }
+.hc-profile-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin-top: 5px; }
+.hc-profile-row { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 4px 7px; border-radius: 9px; background: var(--bg-card-solid); font-size: 11.5px; }
+.hc-profile-label { flex: 1; min-width: 0; overflow-wrap: anywhere; line-height: 1.25; }
+.hc-profile-row b { flex: none; font-variant-numeric: tabular-nums; max-width: 45%; text-align: right; overflow-wrap: anywhere; }
+.hc-ok { flex: none; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;
+  border-radius: 999px; border: 1.5px dashed #9b8f82; color: var(--bg-muted); font-size: 11px; font-weight: 700; }
+.hc-ok.yes { border: 0; background: #3f7a4a; color: #fff; }
+.hc-profile-row.hc-mark .hc-ok.yes { background: var(--bg-ink); }
+
+/* phone sheets: the card sheet spans the bottom with a grab
+   handle (web/controls.js attachSheetHandle): half the screen, tall when
+   dragged up or tapped, closed when dragged down; the map moves the tapped
+   building above it (map.js keepAboveSheet) */
+@media (max-width: 600px) {
+  .hc-sheet {
+    left: 0; right: 0; bottom: 0; z-index: 42; max-height: 56vh; padding: 0 16px calc(14px + env(safe-area-inset-bottom, 0px));
+    border-radius: 22px 22px 0 0; box-shadow: 0 -12px 32px -12px rgba(74, 64, 57, 0.35);
+    transition: max-height var(--bg-slow) var(--bg-ease), transform var(--bg-slow) var(--bg-ease);
+  }
+  .hc-sheet.bg-sheet-tall { max-height: 92vh; }
+  .hc-sheet-close { top: 36px; width: 44px; height: 44px; margin: 0 -8px 0 8px; font-size: 20px; line-height: 44px; z-index: 2; }
+  /* key figures: three per row, never cut ("195 …") */
+  .hc-figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hc-fig strong { font-size: 17px; overflow: visible; text-overflow: clip; }
+  .hc-profile-rows { grid-template-columns: minmax(0, 1fr); }
+  /* touch targets (44 px) on the card */
+  .hc-nearby li[data-near], .hc-block.hc-link { min-height: 44px; }
+  .hc-links a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+/* a hover card taller than the map (placeCard, 048): cut with a fade, the click shows it all */
+.maplibregl-popup.bg-hover-popup .hover-card.hc-capped { overflow: hidden; -webkit-mask-image: linear-gradient(#000 calc(100% - 56px), transparent); mask-image: linear-gradient(#000 calc(100% - 56px), transparent); }
+
+/* a figure this city has no source for (web/city.js coverage) */
+.hc-fig.hc-fig-na { background: none; box-shadow: inset 0 0 0 1px #c9bdb0; }
+.hc-fig.hc-fig-na strong { color: var(--bg-muted); }

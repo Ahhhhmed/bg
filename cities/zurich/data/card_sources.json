@@ -1,0 +1,90 @@
+{
+ "building": {
+  "gwr": {
+   "de": "BFS, Gebäude- und Wohnungsregister",
+   "en": "FSO, buildings register (GWR)",
+   "url": "https://www.housing-stat.ch",
+   "date": "2026-10-29"
+  },
+  "av": {
+   "de": "Amtliche Vermessung, Gebäude",
+   "en": "Cadastral survey, buildings",
+   "url": "https://geodienste.ch/services/av",
+   "date": "2026-10-29"
+  },
+  "av_parcels": {
+   "de": "Amtliche Vermessung, Liegenschaften",
+   "en": "Cadastral survey, plots",
+   "url": "https://geodienste.ch/services/av",
+   "date": "2026-10-29"
+  },
+  "alti3d": {
+   "de": "swisstopo, swissALTI3D (Höhe)",
+   "en": "swisstopo, swissALTI3D (elevation)",
+   "url": "https://www.swisstopo.admin.ch/de/hoehenmodell-swissalti3d",
+   "date": "2026-10-29"
+  },
+  "solar": {
+   "de": "BFE, Sonnendach",
+   "en": "SFOE, solar roofs",
+   "url": "https://www.uvek-gis.admin.ch/BFE/sonnendach/",
+   "date": "2026-10-29"
+  },
+  "noise": {
+   "de": "BAFU, Strassen- und Bahnlärm (Modell)",
+   "en": "FOEN, road and rail noise (model)",
+   "url": "https://map.geo.admin.ch/?layers=ch.bafu.laerm-strassenlaerm_tag",
+   "date": "2026-10-19"
+  },
+  "canton": {
+   "de": "Kanton Zürich, Zonen, ES, Gefahren, Fluglärm, belastete Standorte",
+   "en": "Canton of Zürich, zones, ES, hazards, aircraft noise, contaminated sites",
+   "url": "https://maps.zh.ch/wfs/OGDZHWFS",
+   "date": "2026-10-29"
+  },
+  "runoff": {
+   "de": "BAFU, Oberflächenabfluss",
+   "en": "FOEN, surface runoff",
+   "url": "https://data.geo.admin.ch/browser/index.html#/collections/ch.bafu.gefaehrdungskarte-oberflaechenabfluss",
+   "date": "2026-10-29"
+  },
+  "oev": {
+   "de": "ARE, ÖV-Güteklassen",
+   "en": "ARE, public transport quality grades",
+   "url": "https://data.geo.admin.ch/browser/index.html#/collections/ch.are.gueteklassen_oev",
+   "date": "2026-10-29"
+  },
+  "bav_stops": {
+   "de": "BAV, Haltestellen",
+   "en": "FOT, stops",
+   "url": "https://data.geo.admin.ch/browser/index.html#/collections/ch.bav.haltestellen-oev",
+   "date": "2026-10-29"
+  },
+  "commute": {
+   "de": "Fahrplan (GTFS, geOps), Zeit zum HB geschätzt",
+   "en": "Timetable (GTFS, geOps), time to HB estimated",
+   "url": "https://gtfs.geops.ch",
+   "date": "2026-10-29"
+  },
+  "walk": {
+   "de": "swisstopo swissTLM3D, Strassen und Wege (Fusswege berechnet)",
+   "en": "swisstopo swissTLM3D, roads and paths (walks computed)",
+   "url": "https://www.swisstopo.admin.ch/de/landschaftsmodell-swisstlm3d",
+   "date": "2026-10-19"
+  }
+ },
+ "stop": {
+  "bav_stops": {
+   "de": "BAV, Haltestellen",
+   "en": "FOT, stops",
+   "url": "https://data.geo.admin.ch/browser/index.html#/collections/ch.bav.haltestellen-oev",
+   "date": "2026-10-29"
+  },
+  "gtfs": {
+   "de": "Fahrplan (GTFS, geOps)",
+   "en": "Timetable (GTFS, geOps)",
+   "url": "https://gtfs.geops.ch",
+   "date": "2026-10-29"
+  }
+ }
+}

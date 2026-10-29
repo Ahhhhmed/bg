@@ -1,0 +1,110 @@
+{
+ "schools": {
+  "city_schools": {
+   "de": "Stadt Zürich, Schulanlagen",
+   "en": "City of Zürich, schools",
+   "url": "https://data.stadt-zuerich.ch/dataset/geo_schulanlagen",
+   "date": "2026-10-29"
+  },
+  "city_kitas": {
+   "de": "Stadt Zürich, Kindertagesstätten",
+   "en": "City of Zürich, day care",
+   "url": "https://data.stadt-zuerich.ch/dataset/geo_kindertagesstaette",
+   "date": "2026-10-29"
+  },
+  "canton_sekii": {
+   "de": "Kanton Zürich, Schulen Sek II",
+   "en": "Canton of Zürich, upper-secondary schools",
+   "url": "https://maps.zh.ch/wfs/OGDZHWFS",
+   "date": "2026-10-29"
+  },
+  "osm_geom": {
+   "de": "OpenStreetMap, Flächen",
+   "en": "OpenStreetMap, outlines",
+   "url": "https://www.openstreetmap.org/copyright",
+   "date": "2026-10-29"
+  }
+ },
+ "hospitals": {
+  "canton_spitalliste": {
+   "de": "Kanton Zürich, Spitallisten 2023 (Akutsomatik, Psychiatrie, Rehabilitation)",
+   "en": "Canton of Zürich, hospital lists 2023 (acute, psychiatry, rehabilitation)",
+   "url": "https://www.zh.ch/de/gesundheit/spitaeler-kliniken/spitalplanung.html",
+   "date": "2026-10-29"
+  },
+  "city_spital": {
+   "de": "Stadt Zürich, Spitäler (Adresse)",
+   "en": "City of Zürich, hospitals (address)",
+   "url": "https://www.ogd.stadt-zuerich.ch/wfs/geoportal/Spital",
+   "date": "2026-10-29"
+  },
+  "gwr": {
+   "de": "BFS, Gebäude- und Wohnungsregister (Lage)",
+   "en": "FSO, buildings register (position)",
+   "url": "https://www.housing-stat.ch",
+   "date": "2026-10-29"
+  },
+  "osm": {
+   "de": "OpenStreetMap",
+   "en": "OpenStreetMap",
+   "url": "https://www.openstreetmap.org/copyright",
+   "date": null
+  },
+  "osm_geom": {
+   "de": "OpenStreetMap, Flächen",
+   "en": "OpenStreetMap, outlines",
+   "url": "https://www.openstreetmap.org/copyright",
+   "date": "2026-10-29"
+  }
+ },
+ "health": {
+  "osm": {
+   "de": "OpenStreetMap",
+   "en": "OpenStreetMap",
+   "url": "https://www.openstreetmap.org/copyright",
+   "date": "2026-10-29"
+  }
+ },
+ "shops": {
+  "osm": {
+   "de": "OpenStreetMap",
+   "en": "OpenStreetMap",
+   "url": "https://www.openstreetmap.org/copyright",
+   "date": "2026-10-29"
+  }
+ },
+ "baths": {
+  "city_sport": {
+   "de": "Stadt Zürich, Sport (Bäder)",
+   "en": "City of Zürich, sport (pools)",
+   "url": "https://data.stadt-zuerich.ch/dataset/geo_sport",
+   "date": "2026-10-29"
+  },
+  "canton_baths": {
+   "de": "Kanton Zürich, Badeplätze",
+   "en": "Canton of Zürich, bathing places",
+   "url": "https://maps.zh.ch/wfs/OGDZHWFS",
+   "date": "2026-10-29"
+  },
+  "osm_geom": {
+   "de": "OpenStreetMap, Flächen",
+   "en": "OpenStreetMap, outlines",
+   "url": "https://www.openstreetmap.org/copyright",
+   "date": "2026-10-29"
+  }
+ },
+ "playgrounds": {
+  "city_playgrounds": {
+   "de": "Stadt Zürich, öffentliche Spielplätze",
+   "en": "City of Zürich, public playgrounds",
+   "url": "https://data.stadt-zuerich.ch/dataset/geo_poi_oeffentliche_spielplaetze",
+   "date": "2026-10-29"
+  },
+  "osm_geom": {
+   "de": "OpenStreetMap, Flächen",
+   "en": "OpenStreetMap, outlines",
+   "url": "https://www.openstreetmap.org/copyright",
+   "date": "2026-10-29"
+  }
+ }
+}

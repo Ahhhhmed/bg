@@ -1,0 +1,48 @@
+{
+ "building": {
+  "osm": {
+   "de": "OpenStreetMap, Gebäude (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, buildings (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "msft": {
+   "de": "Microsoft ML Buildings (Overture 2026-10-21.0)",
+   "en": "Microsoft ML Buildings (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "rgz": {
+   "de": "RGZ, Adressregister (via OpenAddresses) (Overture 2026-10-21.0)",
+   "en": "RGZ address register (via OpenAddresses) (Overture 2026-10-21.0)",
+   "url": "https://data.gov.rs/sr/datasets/adresni-registar/",
+   "date": "2026-10-27"
+  },
+  "osm_area": {
+   "de": "OpenStreetMap, Siedlung und Gemeinden (Overture 2026-10-21.0)",
+   "en": "OpenStreetMap, settlement and municipalities (Overture 2026-10-21.0)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  },
+  "commute": {
+   "de": "Sekretarijat za javni prevoz, Fahrplan (GTFS, Stadt + Vororte), Zeit zum Trg Republike geschätzt",
+   "en": "Sekretarijat za javni prevoz, timetable (GTFS, city + suburban), time to Trg Republike estimated",
+   "url": "https://data.gov.rs/sr/datasets/gradski-javni-prevoz-u-beogradu-gtfs/",
+   "date": "2025-10-31"
+  },
+  "walk": {
+   "de": "OpenStreetMap, Strassen und Wege (Overture 2026-10-21.0; Fusswege berechnet)",
+   "en": "OpenStreetMap, roads and paths (Overture 2026-10-21.0; walks computed)",
+   "url": "https://docs.overturemaps.org/attribution/",
+   "date": "2026-10-27"
+  }
+ },
+ "stop": {
+  "gtfs": {
+   "de": "Sekretarijat za javni prevoz, Fahrplan (GTFS, Stadt + Vororte)",
+   "en": "Sekretarijat za javni prevoz, timetable (GTFS, city + suburban)",
+   "url": "https://data.gov.rs/sr/datasets/gradski-javni-prevoz-u-beogradu-gtfs/",
+   "date": "2025-10-31"
+  }
+ }
+}

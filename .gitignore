@@ -1,0 +1,6 @@
+# downloads and intermediate layers: rebuilt by each city's pipeline (README)
+cities/*/data/src/
+cities/*/data/work/
+cities/*/data/layers/*.geojson
+dist/
+__pycache__/

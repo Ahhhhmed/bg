@@ -1,0 +1,92 @@
+# Where each hospital of the Canton of Zürich's hospital lists stands
+# (Zürcher Spitalliste 2023: Akutsomatik, Psychiatrie, Rehabilitation; C-05).
+#
+# The canton's lists name the hospitals but give no address, so this table ties
+# every list entry to a building of the federal building register (GWR) by EGID.
+# Each entry says where its address comes from, so it can be checked and updated:
+#   city:sl001     the City of Zürich's hospital register (poi_spital_view, poi_id)
+#   osm:way/123    an OpenStreetMap element's addr:* tags
+# `address` + `town`: build_places.py looks the address up in the GWR (exact street
+#   and number, in that municipality) and takes its EGID and position; it fails
+#   unless exactly one building has that address.
+# `gwr`: the GWR's own spelling of that address, where it differs.
+# `osm_point` instead of `address`: the source has a position but no address; the
+#   EGID is the cadastral building the OSM element's centre lies in.
+# `outside`: the hospital stands in that town, too far from the area to be shown.
+# `unresolved`: no open source states where it is; not on the map (SOURCES.md).
+# A list entry missing from this table stops the build (python3
+# cities/zurich/pipeline/swiss/build_places.py hospitals): add it here first.
+
+# --- Akutsomatik (Version 2026.4, valid from 1 January 2026) ---
+"Universitäts-Kinderspital Zürich": {address: "Lenggstrasse 30", town: "Zürich", source: "city:sl008"}
+"Universitätsspital Zürich": {address: "Rämistrasse 100", town: "Zürich", source: "city:sl001"}
+"Kantonsspital Winterthur": {outside: "Winterthur"}
+"Stadtspital Zürich - Standort Triemli": {address: "Birmensdorferstrasse 497", town: "Zürich", source: "osm:way/555945140"}
+"Stadtspital Zürich - Standort Waid": {address: "Tièchestrasse 99", town: "Zürich", source: "osm:way/609537142"}
+"Klinik Hirslanden": {address: "Witellikerstrasse 40", town: "Zürich", source: "city:sl007"}
+"See-Spital Horgen": {address: "Asylstrasse 19", town: "Horgen", source: "osm:way/317763534"}
+"Spital Uster": {address: "Brunnenstrasse 42", town: "Uster", source: "osm:way/527550642"}
+"GZO AG Spital Wetzikon": {outside: "Wetzikon"}
+"Spital Limmattal": {address: "Urdorferstrasse 100", town: "Schlieren", source: "osm:way/672118527"}
+"Spital Bülach": {outside: "Bülach"}
+"Spital Zollikerberg": {address: "Trichtenhauserstrasse 20", gwr: "Trichtenhauser Strasse 20", town: "Zollikon", source: "osm:way/675191947"}
+"Spital Männedorf": {address: "Asylstrasse 10", town: "Männedorf", source: "osm:way/236595729"}
+"Spital Affoltern": {address: "Sonnenbergstrasse 27", town: "Affoltern am Albis", source: "osm:relation/9065183"}
+"Universitätsklinik Balgrist": {address: "Forchstrasse 340", town: "Zürich", source: "city:sl003"}
+"Schulthess Klinik": {address: "Lengghalde 2", town: "Zürich", source: "city:sl005"}
+"Uroviva Klinik": {outside: "Bülach"}
+"Limmatklinik": {osm_point: "node/5797902032", town: "Zürich"}
+"Adus Medica": {outside: "Dielsdorf"}
+"Klinik Lengg": {address: "Bleulerstrasse 60", town: "Zürich", source: "city:sl009"}
+"Klinik Susenberg": {address: "Schreberweg 9", town: "Zürich", source: "city:sl015"}
+# the city register still says Konradstrasse 62 (an office building in the GWR);
+# OSM and the GWR (hospital building, 2024) agree on Riedenhaldenstrasse 11
+"Sune-Egge": {address: "Riedenhaldenstrasse 11", town: "Zürich", source: "osm:way/42156983"}
+"Geburtshaus Zürcher Oberland": {outside: "Bäretswil"}
+"Geburthaus Delphys": {osm_point: "way/1312977432", town: "Zürich"}
+"Geburtshaus Winterthur": {outside: "Winterthur"}
+
+# --- Psychiatrie (Version 2026.1, valid from 1 January 2026) ---
+"Psychiatrische Universitätsklinik Zürich - Psychiatrische Universitätsklinik Zürich Lenggstrasse": {address: "Lenggstrasse 31", town: "Zürich", source: "city:sl014"}
+"Psychiatrische Universitätsklinik Zürich - Gerontopsychiatrisches Zentrum Hegibach": {address: "Minervastrasse 145", town: "Zürich", source: "osm:way/692245776"}
+"Psychiatrische Universitätsklinik Zürich - Krisenintervention Militärstrasse": {address: "Militärstrasse 8", town: "Zürich", source: "osm:node/13460825695"}
+"Psychiatrische Universitätsklinik Zürich - Kinderstation Brüschhalde": {address: "Bergstrasse 120", town: "Männedorf", source: "osm:way/23793421"}
+"Psychiatrische Universitätsklinik Zürich - Zentrum für Kinder- und Jugendpsychiatrie Neumünsterallee": {address: "Neumünsterallee 3", town: "Zürich", source: "osm:node/8523455266"}
+"Psychiatrische Universitätsklinik Zürich - Kriseninterventionszentrum Life": {address: "Heliosstrasse 32", town: "Zürich", source: "osm:way/61588249"}
+"Psychiatrische Universitätsklinik Zürich - Zentrum für Integrative Psychiatrie Rheinau": {outside: "Rheinau"}
+"Psychiatrische Universitätsklinik Zürich - Zentrum für stationäre forensische Therapie Rheinau": {outside: "Rheinau"}
+"Integrierte Psychiatrie Winterthur - Zürcher Unterland - Klinik Schlosstal": {outside: "Winterthur"}
+"Integrierte Psychiatrie Winterthur - Zürcher Unterland - Kriseninterventionszentrum Winterthur": {outside: "Winterthur"}
+"Clienia Privatklinik Schlössli": {address: "Schlösslistrasse 8", town: "Oetwil am See", source: "osm:relation/17941802"}
+# the GWR numbers the campus 70a-70h (several hospital buildings): placed by its OSM outline
+"Sanatorium Kilchberg": {osm_point: "way/673614566", town: "Kilchberg (ZH)"}
+"Zentrum für Psychiatrie und Psychotherapie Affoltern": {unresolved: "the list doesn't say which building of Spital Affoltern"}
+"Privatklinik Hohenegg": {address: "Hohenegg 1", town: "Meilen", source: "osm:way/235292955"}
+"Forel Klinik": {outside: "Ellikon an der Thur"}
+"Suchtfachklinik Zürich": {address: "Emil-Klöti-Strasse 18", town: "Zürich", source: "osm:way/533583557"}
+"USZ - Zentrum für Essstörungen": {unresolved: "a department; no open source gives its building"}
+"Universitäts-Kinderspital Zürich - Psychosomatik und Psychiatrie": {unresolved: "a department; no open source gives its building"}
+"KSW - Sozialpädiatrisches Zentrum": {outside: "Winterthur"}
+"Modellstation SOMOSA": {outside: "Winterthur"}
+"Klinik Sonnenhof": {outside: "Ganterschwil (SG)"}
+"Clienia Privatklinik Littenheid": {outside: "Littenheid (TG)"}
+"Klinik Meissenberg": {outside: "Zug"}
+
+# --- Rehabilitation (Version 2026.1, valid from 1 May 2026) ---
+"Rehaklinik Triemli Zürich": {unresolved: "no open source gives its building"}
+"Rehaklinik Wald": {outside: "Wald"}
+"Rehaklinik Waid": {unresolved: "no open source gives its building"}
+"Rehaklinik Limmattal": {unresolved: "no open source gives its building"}
+"Rehaklinik Zollikerberg": {unresolved: "no open source gives its building"}
+"Kinder-Reha Schweiz": {address: "Mühlebergstrasse 104", town: "Affoltern am Albis", source: "osm:way/651732956"}
+"Rehaklinik Bellikon": {outside: "Bellikon (AG)"}
+"Rehaklinik Bad Zurzach": {outside: "Bad Zurzach (AG)"}
+"aarReha Schinznach": {outside: "Schinznach (AG)"}
+"Rehaklinik Gais": {outside: "Gais (AR)"}
+"REHAB Basel": {outside: "Basel"}
+"Rehaklinik Davos Clavadel": {outside: "Davos (GR)"}
+"Hochgebirgsklinik Davos": {outside: "Davos (GR)"}
+"Rehaklinik Valens": {outside: "Valens (SG)"}
+"Rehaklinik Zihlschlacht": {outside: "Zihlschlacht (TG)"}
+"Klinik Schloss Mammern": {outside: "Mammern (TG)"}
+"Rehaklinik Dussnang": {outside: "Dussnang (TG)"}

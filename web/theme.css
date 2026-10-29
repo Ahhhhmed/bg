@@ -1,0 +1,95 @@
+/*
+ * Soft / pastel theme (decision C-06): "wellness / Scandi soft".
+ * Shared by every page (every city map). Tokens only + a few shared pieces;
+ * components keep their own CSS but read these variables.
+ *
+ * The four construction-year colours (web/years.js) appear only where they
+ * mean a year: on the map and in its legend. Accents are cocoa; the
+ * signature element is the contour mark (web/mark.svg, class bg-mark).
+ *
+ * Fonts: Fraunces with its SOFT axis for titles, Nunito for everything else
+ * (Google Fonts link in each page's <head>). Motion: slow fades and small
+ * lifts, switched off for prefers-reduced-motion.
+ */
+:root {
+  --bg-bg: #f6f1ea;              /* oat: page + map background */
+  --bg-card: rgba(255, 250, 244, 0.94);  /* cream cards over the map */
+  --bg-card-solid: #fffaf4;
+  --bg-ink: #4a4039;             /* cocoa text */
+  --bg-muted: #766a60;           /* 4.7:1 on oat, 5.1:1 on cream (AA) */
+  --bg-rule: #e8dfd3;
+  --bg-accent: #6b5d53;          /* controls, links, focus: soft cocoa (6.0:1 on cream) */
+  --bg-tint: rgba(74, 64, 57, 0.06);   /* hover background */
+  --bg-radius: 16px;
+  --bg-radius-sm: 10px;
+  --bg-shadow: 0 1px 2px rgba(74, 64, 57, 0.05), 0 10px 30px -10px rgba(74, 64, 57, 0.22);
+  --bg-shadow-lift: 0 2px 4px rgba(74, 64, 57, 0.06), 0 18px 40px -14px rgba(74, 64, 57, 0.28);
+  --bg-font: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bg-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --bg-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --bg-slow: 0.45s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --bg-slow: 0s; }
+}
+
+/* The signature contour mark, sized to the text it sits next to */
+.bg-mark {
+  display: inline-block;
+  width: 1.05em;
+  height: 1.05em;
+  margin-right: 0.3em;
+  vertical-align: -0.12em;
+  background: url("mark.svg") center / contain no-repeat;
+}
+
+/* Fraunces' soft, calm cut: rounded serifs, no wonky letters */
+.bg-serif {
+  font-family: var(--bg-serif);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+}
+
+/* MapLibre controls as small cream pills */
+.maplibregl-ctrl-group {
+  background: var(--bg-card) !important;
+  border-radius: var(--bg-radius-sm) !important;
+  box-shadow: var(--bg-shadow) !important;
+  overflow: hidden;
+}
+.maplibregl-ctrl-group button + button { border-top-color: var(--bg-rule) !important; }
+.maplibregl-ctrl-group button { transition: background-color var(--bg-slow) var(--bg-ease); }
+.maplibregl-ctrl-group button:not(:disabled):hover { background-color: var(--bg-tint) !important; }
+.maplibregl-ctrl-attrib {
+  background: rgba(255, 250, 244, 0.8) !important;
+  color: var(--bg-muted);
+  font-family: var(--bg-font);
+  border-radius: 999px 0 0 0;
+}
+.maplibregl-ctrl-attrib a { color: var(--bg-muted) !important; }
+
+/* Cream popup for the hover card */
+.maplibregl-popup-content {
+  background: var(--bg-card-solid);
+  color: var(--bg-ink);
+  border-radius: var(--bg-radius);
+  padding: 12px 16px;
+  box-shadow: var(--bg-shadow-lift);
+  font: 12px/1.45 var(--bg-font);
+  animation: bg-fade-in var(--bg-slow) var(--bg-ease);
+}
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--bg-card-solid); }
+.maplibregl-popup-anchor-top .maplibregl-popup-tip { border-bottom-color: var(--bg-card-solid); }
+.maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--bg-card-solid); }
+.maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--bg-card-solid); }
+
+@keyframes bg-fade-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .maplibregl-popup-content { animation: none; }
+}
+
+/* text for screen readers only (the search profile's ✓ / – on the card) */
+.bg-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
