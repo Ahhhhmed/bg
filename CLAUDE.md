@@ -57,6 +57,10 @@ this file, a skill or `docs/decisions.md`, in the same PR.
   login wall unless it's switched off for the project. If the site redirects
   to `vercel.com/login`, switch it off in the project settings, don't work
   around it in code.
+- **Vercel took the repo for a Python app.** It saw `requirements.txt` (the
+  pipelines' packages) and looked for a server entry point
+  (`PYTHON_ENTRYPOINT_NOT_FOUND`). `vercel.json` sets `"framework": null` and a
+  no-op install: the site is static, built by `scripts/build.sh`. Keep both.
 - **A custom URL that stops following `main`.** `vercel alias set` is a
   one-time pointer to one deployment; a project **Domain** follows the latest
   production deployment. Use a Domain.

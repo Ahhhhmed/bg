@@ -1,4 +1,6 @@
 {
+  "framework": null,
+  "installCommand": "echo 'static site: no install step'",
   "buildCommand": "bash scripts/build.sh",
   "outputDirectory": "dist"
 }
