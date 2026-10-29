@@ -42,7 +42,7 @@ def num(v):
 
 def main():
     if not SRC.exists():
-        sys.exit(f"{SRC} missing: run the city's pipeline first (README)")
+        sys.exit(f"{SRC} missing: run the city's pipeline first (docs/development.md)")
     feats = json.loads(SRC.read_text())["features"]
     # housing: GWR category 1010-1040 (Zürich), else OSM's residential types or unknown use (`housing` != 0; Belgrade)
     home = lambda p: p.get("building_category") in HOUSING if "building_category" in p else p.get("housing", 1) != 0

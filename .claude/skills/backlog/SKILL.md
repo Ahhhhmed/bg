@@ -85,10 +85,10 @@ asserted. Plus, for every item:
   only its listed files.
 - **Preview works:** `bash scripts/preview_url.sh` gives the branch preview; after the push, wait until it serves the new commit (grep a changed string from a served JS file; see the `steward` skill), and check a city's `data/layers/cadastre.pmtiles` answers a Range request with 206.
 - **Site works:** `node scripts/check.cjs <preview>` passes for the start page and both cities (see the `verify-site` skill). If `web/` or the tiles changed, also a screenshot of the changed area in each city it touches (`map.jumpTo(...)`), described in the PR.
-- **Data changes:** the city's pipeline re-run as its README section says, tiles rebuilt; before/after counts printed; the city's notes in `CLAUDE.md` and `NOTICE.md` updated if a source or script changed.
+- **Data changes:** the city's pipeline re-run as `docs/development.md` says, tiles rebuilt; before/after counts printed; the city's notes in `CLAUDE.md` and `NOTICE.md` updated if a source or script changed.
 - **Both cities:** a new lens, place layer or card block exists in every city; where a city has no source, its `CITY.coverage` marks it (C-01), and the PR says so.
 - **Code:** `node -e "new Function(require('fs').readFileSync(F,'utf8'))"` for changed JS; `python3 -m py_compile` for changed Python; the colour checks (`scripts/check_*_colours.py`) after any colour change.
-- **Docs:** `CLAUDE.md`, `README.md`, `NOTICE.md` updated when behaviour, data or sources changed. A key decision by the owner gets an entry in `docs/decisions.md`. A skill whose instructions no longer match the code gets fixed in the same PR.
+- **Docs:** `CLAUDE.md`, `README.md` (what users can do, its screenshots), `docs/development.md`, `NOTICE.md` updated when behaviour, data or sources changed. A key decision by the owner gets an entry in `docs/decisions.md`. A skill whose instructions no longer match the code gets fixed in the same PR.
 - **Backlog:** item `status: review`, `pr:` set, Log line with what was done and what's left; `python3 scripts/backlog.py check` passes.
 
 If an acceptance criterion can't be met, don't fake it: leave it unchecked,

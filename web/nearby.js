@@ -35,14 +35,14 @@ function nearbyHtml(p, pinned) {
   const rows = WALK_KINDS.filter(k => k.id !== "stop").map(k => {
     const m = Number(p[`w_${k.id}`]), e = nearEntry(p[`n_${k.id}`]);
     if (lensCoverage(`walk_${k.id}`).state === "none") {   // no such places in this city's sources
-      return `<li class="hc-near-none"><span class="hc-near-kind">${escapeHtml(tr(k.label))}</span><span class="hc-near-name">${escapeHtml(covText("cov.na"))}</span><span class="hc-near-dist">–</span></li>`;
+      return `<li class="hc-near-none"><i></i><span class="hc-near-kind">${escapeHtml(tr(k.label))}</span><span class="hc-near-name">${escapeHtml(covText("cov.na"))}</span><span class="hc-near-dist">–</span></li>`;
     }
     if (m > 0 && !e) {   // the walk is known, the place's name not yet (or not at all)
       return `<li><i></i><span class="hc-near-kind">${escapeHtml(tr(k.label))}</span><span class="hc-near-name hc-quiet-text">${escapeHtml(pendingName())}</span>`
         + `<span class="hc-near-dist">${escapeHtml(walkText(m))}</span></li>`;
     }
     if (!(m > 0)) {
-      return `<li class="hc-near-none"><span class="hc-near-kind">${escapeHtml(tr(k.label))}</span><span class="hc-near-name">–</span><span class="hc-near-dist">${escapeHtml(t("hc.nearNone"))}</span></li>`;
+      return `<li class="hc-near-none"><i></i><span class="hc-near-kind">${escapeHtml(tr(k.label))}</span><span class="hc-near-name">–</span><span class="hc-near-dist">${escapeHtml(t("hc.nearNone"))}</span></li>`;
     }
     const icon = placeIconUrl(`place-${e[2]}${e[2] === "er" ? "-hub" : ""}`);
     const attrs = pinned ? ` data-near="${Number(p[`n_${k.id}`])}" role="button" tabindex="0"` : "";

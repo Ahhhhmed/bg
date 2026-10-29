@@ -1,83 +1,90 @@
-# bg
+# bg: Belgrade from open data
 
-A map of Belgrade from open data: every building with what the open data says
-about it, an address search, places and walking distances, public transport to
-Trg Republike with a timetable card for every stop, air-quality stations, and a
-search profile. Serbian (Latin) and English.
+[![The Belgrade map: buildings coloured by the trip to Trg Republike, with a building's card open](docs/img/hero.jpg)](https://bg-gules-iota.vercel.app/)
 
-The same app also draws the City of Zürich, as the **reference**: Switzerland
-publishes far more open data (year built, noise, zoning, hazards, plots, solar),
-so the Zürich map shows what the Belgrade map looks like where a source exists.
-Lenses and card blocks Belgrade has no data for are greyed with the reason,
-never hidden.
+**Open the map: [bg-gules-iota.vercel.app](https://bg-gules-iota.vercel.app/)**
+(in Serbian; switch to English in the language menu, or add `?lang=en`)
 
-- Belgrade (the start page): `/`
-- Zürich, the reference: `/zurich/`
+Every building in Belgrade on one map, with what public data says about it:
+its address, how long the trip to Trg Republike takes, what's near on foot, the
+stops and their timetables, and the air at the nearest measuring station.
 
-Contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
+The map is made only from **open data**: OpenStreetMap, the national address
+register, the city's public-transport timetable and the environment agency's
+air-quality network. Nothing is guessed. Where no open source exists, the map
+says so instead of hiding the feature or making something up. "Year built",
+for example, shows greyed with *not available in Belgrade*.
 
-Code: MIT ([LICENSE](LICENSE)). Data: each source's own licence
-([NOTICE.md](NOTICE.md)).
+## What you can do
 
-## Setup
+- **Find an address, a place or a stop.** Type in the search field at the top
+  left: "Resavska 92", "Slavija", a school's name. Pick a result and the map
+  flies there and opens its card.
+- **Click a building** for its card: footprint and floors where they're
+  recorded, the estimated trip to Trg Republike and the stop it starts from with
+  its lines, the nearest kindergarten, school, supermarket, pharmacy, doctor,
+  playground and pool on foot, and every source with its date.
+- **Colour the map** ("Boji po" / "Colour by", next to the search) by the trip to
+  Trg Republike, by walking time to a kind of place, or by floors. The legend
+  at the bottom left explains the colours and says what's missing.
+- **Look up a stop.** Switch on *Stops* in the map menu ("Karta" / "Map") and
+  click one. Its card shows the trip to Trg Republike through the day: the
+  fastest, average and slowest trip and the wait for any hour, and the next
+  connections with their lines.
+- **Check the air.** Switch on *Air quality* in the map menu. Each of the 24
+  measuring stations has a card with the last 30 days' average of PM2.5, PM10,
+  NO₂ and O₃, and the verified yearly averages where the agency publishes them,
+  next to the EU limits and WHO guidelines for reference.
+- **Find buildings that fit.** In the *Search profile* (top left), add criteria:
+  at most 20 minutes to Trg Republike, a school within 10 minutes on foot, ...
+  Buildings that don't fit fade out, and the panel counts how many homes do.
+  You can also just mark matching buildings instead of filtering.
+- **Share a setup.** The address bar keeps the colouring, the layers and places
+  that are on, the search profile and the language, so a copied link opens the
+  map set up the same way (at its start position).
+- **On a phone** the cards and menus open as sheets from the bottom.
 
-```
-bash setup.sh                 # tippecanoe, GDAL, Python packages (.venv)
-bash scripts/build.sh         # the site -> dist/ (from the committed tiles and tables)
-python3 scripts/serve.py 8750 dist
-node scripts/check.cjs http://localhost:8750
-```
+<table>
+<tr>
+<td><a href="https://bg-gules-iota.vercel.app/?places=s"><img src="docs/img/stop.jpg" alt="The timetable card of the stop Trg Slavija"></a></td>
+<td><a href="https://bg-gules-iota.vercel.app/?places=q"><img src="docs/img/air.jpg" alt="An air-quality station's card"></a></td>
+</tr>
+<tr>
+<td>A stop's card: trips to Trg Republike through the day</td>
+<td>An air-quality station: the last 30 days and the verified year</td>
+</tr>
+</table>
 
-The committed tiles and tables are enough to build and deploy the site; the
-pipelines below are only needed to refresh a city's data. Deployed on Vercel
-(`vercel.json`: `bash scripts/build.sh`, output `dist/`); every branch gets a
-preview (`bash scripts/preview_url.sh`).
+## Zürich, the reference
 
-## Layout
+[![The Zürich map, buildings coloured by year built](docs/img/zurich.jpg)](https://bg-gules-iota.vercel.app/zurich/)
 
-```
-cities/<id>/city.js          the city: name, languages, centre, relief, credits,
-                             coverage (what's missing and why), labels
-cities/<id>/pipeline/        the city's data scripts (sources differ per city)
-cities/<id>/data/            built outputs: tiles, tables, stop profiles (committed)
-cities/<id>/data/layers/     GeoJSON layers (gitignored) + cadastre.pmtiles, relief
-cities/<id>/data/src/        downloads (gitignored)
-cities/zurich/config/        the area (BFS 261) and the hospital sites
-cities/zurich/data/work/     the Swiss scripts' outputs and caches (gitignored)
-shared/build_tiles.sh <id>   GeoJSON layers -> cadastre.pmtiles (tippecanoe)
-shared/pipeline/             profile_table.py, address_index.py (take the city id)
-web/                         the map app, one copy for every city
-scripts/build.sh [out]       the public site -> dist/ (only listed files go out)
-scripts/check.cjs <url>      headless check of the start page and both cities
-scripts/check_*_colours.py   the colour rules (years, lenses, ground tints)
-backlog/                     open work, one file per item (scripts/backlog.py)
-docs/decisions.md            what was decided and must not be undone silently
-.claude/                     skills and commands for Claude sessions
-```
+The same map also runs for the City of Zürich, at
+[/zurich/](https://bg-gules-iota.vercel.app/zurich/) ("Referenca: Cirih" in
+the menu). Switzerland publishes much more as open data: year built, number of
+flats, heating, noise, zoning, natural hazards, land plots, solar potential.
+So the Zürich map shows what the Belgrade map looks like where a source exists.
+It's a reference, refreshed rarely; the work goes into Belgrade.
 
-## Rebuild a city
+## Where the data comes from
 
-Zürich (the Swiss sources; hours on a fresh run, caches kept in `data/work/`):
+- **Buildings, streets, water, green areas, places:** OpenStreetMap and Overture
+  Maps (ODbL; building outlines partly from Microsoft's machine-learning set).
+- **Addresses:** the national address register (RGZ).
+- **Stops and timetables:** the city's Secretariat for Public Transport (GTFS,
+  city and suburban lines).
+- **Air quality:** the Serbian Environmental Protection Agency (SEPA): its open
+  data API, and its verified daily values.
+- **Relief:** the Copernicus elevation model.
 
-```
-bash cities/zurich/pipeline/refresh.sh            # all steps, or --from <step>
-```
+Every card lists its sources and their dates. The pin at the bottom right shows
+how old the map's data is. Licences and attributions: [NOTICE.md](NOTICE.md).
 
-Belgrade:
+## Help build it
 
-```
-python3 cities/belgrade/pipeline/fetch_overture.py    # Overture release, ~5 min
-python3 cities/belgrade/pipeline/build_layers.py
-python3 cities/belgrade/pipeline/build_relief.py      # Copernicus DEM
-python3 cities/belgrade/pipeline/build_transit.py     # GTFS -> stops, stop cards (~3 min)
-python3 cities/belgrade/pipeline/build_air.py --refresh   # SEPA stations, last 30 days + verified 2024
-python3 shared/pipeline/walk.py belgrade              # walks + commute per building
-bash shared/build_tiles.sh belgrade
-python3 shared/pipeline/profile_table.py belgrade && python3 shared/pipeline/address_index.py belgrade
-```
+The map is built by people working with Claude: pick an item from the
+[backlog](backlog/), let Claude build it, review the preview, merge. How that
+works: [CONTRIBUTING.md](CONTRIBUTING.md). Building the site and refreshing the
+data: [docs/development.md](docs/development.md).
 
-Then `bash scripts/build.sh`, serve `dist/` with a server that honours HTTP
-Range (PMTiles needs it; `python3 scripts/serve.py 8750 dist`), and
-`node scripts/check.cjs http://localhost:8750`.
-
-Data sources and licences: [NOTICE.md](NOTICE.md).
+Code: MIT ([LICENSE](LICENSE)). Data: each source's own licence ([NOTICE.md](NOTICE.md)).
