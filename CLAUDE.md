@@ -92,7 +92,7 @@ this file, a skill or `docs/decisions.md`, in the same PR.
   solar-roof outline, raster trace, placeholder square); underground ones are
   faint and never extruded.
 - The relief is swisstopo's own tiles (WMTS), at 25 %.
-- Not available yet: air quality (backlog 001).
+- Not available yet: air quality (the layer is greyed; no source wired in).
 
 ## Belgrade specifics
 
