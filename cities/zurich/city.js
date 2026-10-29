@@ -15,6 +15,6 @@ const CITY = {
   // the menu links them: this map is the reference for Belgrade's (C-23)
   others: [{ id: "belgrade", href: "/", name: { de: "Belgrad", en: "Belgrade", sr: "Beograd" },
              sub: { de: "die Hauptkarte dieses Projekts", en: "this project's main map", sr: "glavna karta projekta" } }],
-  // no air-quality layer here (backlog 001: the city's stations and BAFU's modelled maps)
+  // no air-quality layer here (greyed: no source wired in)
   coverage: { lens: {}, place: { air: { state: "none" } }, card: [], walk: "full" },
 };

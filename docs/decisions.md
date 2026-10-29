@@ -175,7 +175,7 @@ follows them.
 - **Decision (owner):** monitoring stations as a place layer, one card each: the last 30 days'
   means (preliminary, unverified, labelled so) and verified annual means where the agency
   publishes them. The EU limits and WHO guidelines are shown for reference only: a 30-day
-  mean isn't an annual mean. Zürich's stations and BAFU's modelled maps are a backlog item.
+  mean isn't an annual mean. Zürich has no air layer (greyed: no source wired in).
 - **Where:** `cities/belgrade/pipeline/build_air.py`, `PLACE_CARDS.air` in `web/places.js`.
 
 ### C-22 · Belgrade: the settlement, 10 urban municipalities; unknown use counts as housing (2026-10-27, under review)
