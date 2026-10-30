@@ -72,6 +72,12 @@ this file, a skill or `docs/decisions.md`, in the same PR.
   while `isStyleLoaded()` is false; `update()` now applies on the next `idle`.
 - **The page scrolled away under a pinned card**: MapLibre focused the popup
   before it was placed. Pinned cards open with `focusAfterOpen: false`.
+- **A tap on a building opened its phone sheet and closed it again.** The
+  map-wide click handler (a tap next to the buildings closes the sheet) skipped
+  closing only within 50 ms of the pin; building the card took longer on a slow
+  phone, so the same tap closed the sheet it had just opened. `pinnedAt` is
+  `performance.now()`, compared with the click's own `timeStamp` (`web/map.js`).
+  Don't go back to a fixed time window.
 - **Text traced as buildings (Zürich).** The raster fallback tier once traced
   street labels ("ZÜRICH") as buildings; shape heuristics can't tell a bold
   letter from a small building. That tier only joins by EGID now.

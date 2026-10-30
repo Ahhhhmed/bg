@@ -305,7 +305,7 @@ function showPlaceCard(e, pinned) {
   const key = `${f.sourceLayer}:${p.name}:${f.geometry.coordinates.join(",")}`;
   const lngLat = { lng: f.geometry.coordinates[0], lat: f.geometry.coordinates[1] };
   if (pinned) {
-    pinnedAt = Date.now();
+    pinnedAt = performance.now();
     popup.remove();
     hoveredPlace = null;
     const html = placeCardHtml(pl, p, true);
