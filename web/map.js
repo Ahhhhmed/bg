@@ -657,7 +657,7 @@ function keepAboveSheet(lngLat) {
   const target = sheetTop - top > 3 * pad ? (top + sheetTop) / 2 : sheetTop - pad;
   map.panBy([0, y - target], { duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 400 });
 }
-let pinnedAt = 0;
+let pinnedAt = 0;   // performance.now() of the last pin: a click's own timeStamp is on the same clock
 
 // The card on screen and how to draw it again. Some of what a card shows
 // arrives after it opened (the place index, the source tables: small JSON
@@ -687,7 +687,7 @@ function handleBuildingPin(e) {
 }
 // a building's pinned card (a sheet on a phone), with its ring on the map
 function openBuildingCard(bp, lngLat) {
-  pinnedAt = Date.now();
+  pinnedAt = performance.now();
   popup.remove();
   const html = buildingCardHtml(bp, true);
   rememberCard({ draw: () => buildingCardHtml(bp, true), pinned: true, lngLat, sel: `.hc-building[data-egid="${bp.egid}"]` });
@@ -715,7 +715,13 @@ map.on('click', 'buildings-2d', handleBuildingPin);
 map.on('click', 'buildings-3d', handleBuildingPin);
 // a tap on the map next to the buildings closes the sheet (the layer click
 // above runs first for a tap on a building)
-map.on('click', () => { if (Date.now() - pinnedAt > 50) closeSheet(); });
+// Not a fixed time window: building the card took more than 50 ms on a slow
+// phone, and the same tap closed the sheet it had just opened. A card pinned
+// while this click was handled has a pinnedAt at or after the click's own timeStamp.
+map.on('click', e => {
+  const t = e.originalEvent && e.originalEvent.timeStamp;
+  if (t ? pinnedAt < t : performance.now() - pinnedAt > 50) closeSheet();
+});
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { pinnedCard.remove(); closeSheet(); }
 });

@@ -295,7 +295,7 @@ function showStopCard(e, pinned) {
     if (pinned && isNarrow()) openSheet(html, lngLat);
     else { card.options.anchor = "top-left"; placeCard(card, lngLat, html); }
   };
-  if (pinned) { pinnedAt = Date.now(); popup.remove(); }
+  if (pinned) { pinnedAt = performance.now(); popup.remove(); }
   const cached = STOP_DATA.get(nr);
   if (cached && typeof cached.then !== "function") { draw(cached); return; }
   draw(undefined);
